@@ -17,8 +17,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-04
+
+### Added
+
+- **PyPI username-based package discovery** — `pypi: your-username` now auto-discovers all packages you own or maintain via the PyPI XMLRPC `user_packages` API, consistent with how `npm`, `rubygems` and `dockerhub` work. Explicit comma-separated names (`pypi: pkg1,pkg2`) continue to work unchanged. Resolved profiles also populate `identity.contact.social` with the user's PyPI profile URL.
+- **DockerHub generator** — `dockerhub: your-username` fetches all your published container images with pull counts, star counts, and descriptions.
+
 ### Changed
 
+- **`templates/.mcp-me.yaml`** — PyPI entry now documents both usage modes with inline comments.
 - **Blogger backup docs** — clarified in the generated `.mcp-me.yaml` template that `--blogger-backup` imports all posts by default when only the XML path is provided, and that the `::author1,author2` suffix is optional for multi-author filtering.
 
 ## [0.4.1] - 2026-03-25
