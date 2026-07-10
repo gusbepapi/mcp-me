@@ -4,6 +4,7 @@ import { version } from "../package.json";
 import { PROFILE_CATEGORIES } from "./schema/index.js";
 import { loadProfile, loadPluginsConfig, searchProfile, type ProfileBundle } from "./loader.js";
 import { discoverPlugins, type McpMePlugin, type PluginPrompt } from "./plugin-engine/index.js";
+import { registerCvTools } from "./tools/generate-cv.js";
 
 const RESOURCE_DESCRIPTIONS: Record<string, { title: string; description: string }> = {
   identity: { title: "Who I Am", description: "Name, bio, location, email, website, and social media links. Use this to learn who this person is and how to contact them." },
@@ -37,6 +38,9 @@ export async function createMcpMeServer(profileDir: string): Promise<McpServer> 
 
   // Register core tools
   registerCoreTools(server, profile);
+
+  // Register the curriculum-vitae generation tool
+  registerCvTools(server, profile, profileDir);
 
   // Register core prompts
   registerCorePrompts(server, profile);
@@ -87,9 +91,9 @@ function registerCoreTools(server: McpServer, profile: ProfileBundle): void {
         "Ask any question about this person and get an answer based on their complete profile. " +
         "Covers: bio, career history, skills, projects, interests, personality, goals, and FAQ. " +
         "Examples: 'What programming languages do they know?', 'Where do they work?', 'What books have they written?'",
-      inputSchema: z.object({
+      inputSchema: {
         question: z.string().describe("Any question about this person (e.g. 'What are their top skills?', 'Do they have open-source projects?')"),
-      }),
+      },
       annotations: { readOnlyHint: true },
     },
     async ({ question }) => {
@@ -124,9 +128,9 @@ function registerCoreTools(server: McpServer, profile: ProfileBundle): void {
         "Search across the entire personal profile for a keyword or phrase. " +
         "Searches through: name, bio, job titles, companies, skill names, project names, article titles, book titles, social links, FAQ answers, and more. " +
         "Returns matching fields with their location in the profile.",
-      inputSchema: z.object({
+      inputSchema: {
         query: z.string().describe("Keyword to search for (e.g. 'TypeScript', 'open-source', 'running')"),
-      }),
+      },
       annotations: { readOnlyHint: true },
     },
     async ({ query }) => {
@@ -269,7 +273,7 @@ function registerPlugins(server: McpServer, plugins: McpMePlugin[]): void {
         {
           title: tool.title,
           description: tool.description,
-          inputSchema: tool.inputSchema,
+          inputSchema: tool.inputSchema.shape,
           annotations: tool.annotations,
         },
         async (input) => ({

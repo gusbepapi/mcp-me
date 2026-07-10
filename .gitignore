@@ -8,3 +8,5 @@ coverage/
 *.log
 my-profile/
 .vscode/
+cv-output/
+__pycache__/

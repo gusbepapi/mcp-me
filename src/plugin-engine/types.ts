@@ -29,7 +29,7 @@ export interface PluginTool {
   /** Description of what this tool does */
   description: string;
   /** Zod schema for input parameters */
-  inputSchema: z.ZodType;
+  inputSchema: z.ZodObject<z.ZodRawShape>;
   /** Tool annotations for hinting behavior */
   annotations?: {
     readOnlyHint?: boolean;
