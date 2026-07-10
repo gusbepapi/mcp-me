@@ -28,7 +28,30 @@ AI:  (reads your me://career, me://skills, me://projects)
 
 > **Prerequisite:** [Node.js](https://nodejs.org/) 20 or later. Verify with `node -v`.
 
-**Recommended — install globally:**
+### One-Click Install
+
+Add mcp-me to your AI assistant in one click — no path configuration needed (profile defaults to `~/.mcp-me`):
+
+<p align="center">
+  <a href="https://cursor.com/install-mcp?name=me&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIm1jcC1tZSIsInNlcnZlIl19">
+    <img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add mcp-me to Cursor" height="32">
+  </a>
+  &nbsp;&nbsp;
+  <a href="vscode:mcp/install?%7B%22name%22%3A%22me%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22mcp-me%22%2C%22serve%22%5D%7D">
+    <img src="https://img.shields.io/badge/VS_Code-Install_MCP-007ACC?style=for-the-badge&logo=visualstudiocode" alt="Install mcp-me in VS Code" height="32">
+  </a>
+</p>
+
+**Claude Desktop:** Download the [latest `.mcpb` release](https://github.com/paladini/mcp-me/releases/latest) and double-click to install, or drag it into Claude Desktop → Settings → Extensions.
+
+After installing, initialize your profile:
+
+```bash
+mcp-me init
+mcp-me generate --github your-username
+```
+
+### npm (recommended)
 
 ```bash
 npm install -g mcp-me
@@ -38,9 +61,9 @@ This makes the `mcp-me` command available everywhere on your system. No need to 
 
 ```bash
 mcp-me --help
-mcp-me init ~/my-profile
-mcp-me generate ~/my-profile
-mcp-me serve ~/my-profile
+mcp-me init
+mcp-me generate --github your-username
+mcp-me serve
 ```
 
 **Alternative — run without installing** (via `npx`):
@@ -51,14 +74,16 @@ npx mcp-me --help
 
 `npx` downloads the package temporarily and runs it. Useful for trying mcp-me once, but slower on repeated use since it re-downloads each time.
 
+> **Profile location:** Commands default to `~/.mcp-me`. Override with `MCP_ME_PROFILE_DIR` or pass an explicit path: `mcp-me serve ~/my-profile`.
+
 ## Quick Start
 
 ```bash
-# 1. Initialize your profile (creates YAML templates + .mcp-me.yaml config)
-mcp-me init ~/my-profile
+# 1. Initialize your profile (creates YAML templates + .mcp-me.yaml in ~/.mcp-me)
+mcp-me init
 
 # 2. Edit the config file — uncomment your sources
-code ~/my-profile/.mcp-me.yaml
+code ~/.mcp-me/.mcp-me.yaml
 ```
 
 Your `.mcp-me.yaml` config file:
@@ -78,20 +103,20 @@ plugins:
 
 ```bash
 # 3. Generate! Reads sources from .mcp-me.yaml automatically
-mcp-me generate ~/my-profile
+mcp-me generate
 
 # 4. Start the MCP server
-mcp-me serve ~/my-profile
+mcp-me serve
 ```
 
-> **CLI flags also work:** `mcp-me generate ~/my-profile --github octocat --devto myuser`
+> **CLI flags also work:** `mcp-me generate --github octocat --devto myuser`
 
 All commands work with `npx` (zero install) or with `mcp-me` directly if installed globally. The `generate` command pulls your data from public APIs and auto-populates profile YAML files — no API keys needed for most sources.
 
 ### Profile directory structure
 
 ```
-my-profile/
+~/.mcp-me/             ← Default profile location
   .mcp-me.yaml        ← Configuration (generators + plugins)
   identity.yaml        ← Your data (name, bio, contact)
   skills.yaml          ← Your data (languages, tools)
@@ -105,6 +130,10 @@ my-profile/
 
 ## Configure Your AI Assistant
 
+### One-Click (Cursor & VS Code)
+
+Use the [one-click install badges](#one-click-install) above. After installing, run `mcp-me init` to create your profile.
+
 ### Windsurf
 
 Add to `~/.codeium/windsurf/mcp_config.json`:
@@ -114,13 +143,13 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
   "mcpServers": {
     "me": {
       "command": "npx",
-      "args": ["mcp-me", "serve", "/absolute/path/to/my-profile"]
+      "args": ["-y", "mcp-me", "serve"]
     }
   }
 }
 ```
 
-### Cursor
+### Cursor (manual)
 
 Add to `.cursor/mcp.json` in your project root:
 
@@ -129,7 +158,7 @@ Add to `.cursor/mcp.json` in your project root:
   "mcpServers": {
     "me": {
       "command": "npx",
-      "args": ["mcp-me", "serve", "/absolute/path/to/my-profile"]
+      "args": ["-y", "mcp-me", "serve"]
     }
   }
 }
@@ -144,7 +173,7 @@ Add to `.vscode/mcp.json` in your project root (or in your User Settings for glo
   "servers": {
     "me": {
       "command": "npx",
-      "args": ["mcp-me", "serve", "/absolute/path/to/my-profile"]
+      "args": ["-y", "mcp-me", "serve"]
     }
   }
 }
@@ -154,6 +183,15 @@ Add to `.vscode/mcp.json` in your project root (or in your User Settings for glo
 
 ### Claude Desktop
 
+**Option A — Desktop Extension (.mcpb, recommended):**
+
+1. Download `mcp-me.mcpb` from [GitHub Releases](https://github.com/paladini/mcp-me/releases/latest)
+2. Double-click the file, or drag it into Claude Desktop → Settings → Extensions
+3. Set your profile directory when prompted (default: `~/.mcp-me`)
+4. Run `mcp-me init` if you haven't created a profile yet
+
+**Option B — Manual config:**
+
 Add to your Claude Desktop config:
 
 ```json
@@ -161,7 +199,7 @@ Add to your Claude Desktop config:
   "mcpServers": {
     "me": {
       "command": "npx",
-      "args": ["mcp-me", "serve", "/absolute/path/to/my-profile"]
+      "args": ["-y", "mcp-me", "serve"]
     }
   }
 }
@@ -286,10 +324,10 @@ Examples:
 
 ```bash
 # Import all posts from a Blogger export
-mcp-me generate ~/my-profile --blogger-backup ~/Downloads/blog-2026-03-24.xml
+mcp-me generate --blogger-backup ~/Downloads/blog-2026-03-24.xml
 
 # Import only posts written by specific authors/emails
-mcp-me generate ~/my-profile --blogger-backup "~/Downloads/blog.xml::fernandopalad@gmail.com,fnpaladini@gmail.com,Fernando Paladini"
+mcp-me generate --blogger-backup "~/Downloads/blog.xml::fernandopalad@gmail.com,fnpaladini@gmail.com,Fernando Paladini"
 ```
 
 How to get the export file:
@@ -370,21 +408,23 @@ Community plugins are installed from npm (`mcp-me-plugin-*`) and auto-discovered
 
 ```bash
 # Auto-generate profile from multiple data sources
-mcp-me generate <dir> --github <user> [--devto <user>] [--stackoverflow <id>] ...
+mcp-me generate [--directory] --github <user> [--devto <user>] [--stackoverflow <id>] ...
 
-# Initialize with blank YAML templates
-mcp-me init <directory>
+# Initialize with blank YAML templates (defaults to ~/.mcp-me)
+mcp-me init [directory]
 
 # Validate profile YAML files
-mcp-me validate <directory>
+mcp-me validate [directory]
 
-# Start the MCP server
-mcp-me serve <directory>
+# Start the MCP server (defaults to ~/.mcp-me)
+mcp-me serve [directory]
 
 # Scaffold a new generator or plugin (for contributors)
 mcp-me create generator <name> [--category <category>]
 mcp-me create plugin <name>
 ```
+
+> **Profile location:** Defaults to `~/.mcp-me`. Override with `MCP_ME_PROFILE_DIR` or pass an explicit `[directory]` argument.
 
 ## Development
 
@@ -432,6 +472,8 @@ Currently 329 registered generators, implemented across 44 generator source file
 ## Contributing
 
 We welcome contributions! Whether it's a new plugin, a bug fix, or documentation improvements — see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for guidelines.
+
+Maintainers: see [Publishing Guide](docs/publishing.md) for release and distribution instructions.
 
 ## License
 

@@ -64,7 +64,7 @@
     "license": "https://opensource.org/licenses/MIT",
     "codeRepository": "https://github.com/paladini/mcp-me",
     "programmingLanguage": "TypeScript",
-    "softwareVersion": "0.4.0"
+    "softwareVersion": "0.6.0"
   }
   </script>
 
@@ -144,6 +144,20 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
         </button>
       </div>
+
+      <div class="install-buttons fade-in">
+        <span class="install-buttons__label">One-click install:</span>
+        <a href="https://cursor.com/install-mcp?name=me&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIm1jcC1tZSIsInNlcnZlIl19" class="install-buttons__link" target="_blank" rel="noopener">
+          <img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add mcp-me to Cursor" height="32">
+        </a>
+        <a href="vscode:mcp/install?%7B%22name%22%3A%22me%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22mcp-me%22%2C%22serve%22%5D%7D" class="install-buttons__link">
+          <img src="https://img.shields.io/badge/VS_Code-Install_MCP-007ACC?style=for-the-badge&logo=visualstudiocode" alt="Install mcp-me in VS Code" height="32">
+        </a>
+        <a href="https://github.com/paladini/mcp-me/releases/latest" class="install-buttons__link install-buttons__link--text" target="_blank" rel="noopener">
+          Claude Desktop (.mcpb)
+        </a>
+      </div>
+      <p class="install-buttons__note fade-in">Profile defaults to <code>~/.mcp-me</code>. Run <code>mcp-me init</code> after installing.</p>
 
       <!-- Hero Illustration: ELI5 before/after -->
       <div class="hero-compare fade-in">
@@ -365,9 +379,9 @@
         <div class="step">
           <div class="step__number">1</div>
           <div class="step__title">Initialize</div>
-          <div class="step__desc">Create your profile directory with YAML templates and a config file.</div>
+          <div class="step__desc">Create your profile in <code>~/.mcp-me</code> with YAML templates and a config file.</div>
           <div class="step__code">
-            <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">init ~/my-profile</span>
+            <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">init</span>
           </div>
         </div>
 
@@ -376,7 +390,7 @@
           <div class="step__title">Configure</div>
           <div class="step__desc">Open <code>.mcp-me.yaml</code> and tell it where to find your data — your GitHub username, DEV.to handle, etc.</div>
           <div class="step__code">
-            <span class="prompt">$ </span><span class="cmd">code</span> <span class="arg">~/my-profile/.mcp-me.yaml</span>
+            <span class="prompt">$ </span><span class="cmd">code</span> <span class="arg">~/.mcp-me/.mcp-me.yaml</span>
           </div>
         </div>
 
@@ -385,7 +399,7 @@
           <div class="step__title">Generate</div>
           <div class="step__desc">Pull data from 329+ public APIs and local exports automatically based on your config.</div>
           <div class="step__code">
-            <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">generate ~/my-profile</span>
+            <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">generate</span>
           </div>
         </div>
 
@@ -394,7 +408,7 @@
           <div class="step__title">Serve</div>
           <div class="step__desc">Start the MCP server. Every AI assistant can now read your profile.</div>
           <div class="step__code">
-            <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">serve ~/my-profile</span>
+            <span class="prompt">$ </span><span class="cmd">mcp-me</span> <span class="arg">serve</span>
           </div>
         </div>
       </div>
@@ -677,23 +691,23 @@
           <span class="terminal__dot terminal__dot--red"></span>
           <span class="terminal__dot terminal__dot--yellow"></span>
           <span class="terminal__dot terminal__dot--green"></span>
-          <span class="terminal__title">~/my-profile — bash</span>
+          <span class="terminal__title">~/.mcp-me — bash</span>
         </div>
         <div class="terminal__body">
           <div><span class="comment"># 1. Install globally (or use npx)</span></div>
           <div><span class="prompt">$ </span><span class="cmd">npm install -g</span> <span class="flag">mcp-me</span></div>
           <div>&nbsp;</div>
-          <div><span class="comment"># 2. Create your profile with YAML templates</span></div>
-          <div><span class="prompt">$ </span><span class="cmd">mcp-me init</span> <span class="arg">~/my-profile</span></div>
+          <div><span class="comment"># 2. Create your profile with YAML templates (defaults to ~/.mcp-me)</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">mcp-me init</span></div>
           <div>&nbsp;</div>
           <div><span class="comment"># 3. Edit the config — add your usernames and data sources</span></div>
-          <div><span class="prompt">$ </span><span class="cmd">code</span> <span class="arg">~/my-profile/.mcp-me.yaml</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">code</span> <span class="arg">~/.mcp-me/.mcp-me.yaml</span></div>
           <div>&nbsp;</div>
           <div><span class="comment"># 4. Auto-populate from your online presence</span></div>
-          <div><span class="prompt">$ </span><span class="cmd">mcp-me generate</span> <span class="arg">~/my-profile</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">mcp-me generate</span></div>
           <div>&nbsp;</div>
           <div><span class="comment"># 5. Start the MCP server</span></div>
-          <div><span class="prompt">$ </span><span class="cmd">mcp-me serve</span> <span class="arg">~/my-profile</span></div>
+          <div><span class="prompt">$ </span><span class="cmd">mcp-me serve</span></div>
           <div><span style="color: #22c55e;">✓</span> MCP server running — AI assistants can now read your profile</div>
         </div>
       </div>
@@ -759,6 +773,24 @@
       <h2 class="section-title">Frequently asked questions</h2>
 
       <div class="faq__list fade-in">
+        <details class="faq__item">
+          <summary class="faq__question">How do I install mcp-me in Cursor, VS Code, or Claude?</summary>
+          <div class="faq__answer">
+            Use the one-click install buttons at the top of this page for Cursor and VS Code.
+            For Claude Desktop, download the <code>.mcpb</code> bundle from
+            <a href="https://github.com/paladini/mcp-me/releases/latest" target="_blank" rel="noopener">GitHub Releases</a>
+            and double-click to install. After installing, run <code>mcp-me init</code> to create your profile in <code>~/.mcp-me</code>.
+          </div>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">Where is my profile stored?</summary>
+          <div class="faq__answer">
+            By default, all commands use <code>~/.mcp-me</code>. Override with the <code>MCP_ME_PROFILE_DIR</code> environment variable
+            or pass an explicit path: <code>mcp-me serve ~/custom-profile</code>.
+          </div>
+        </details>
+
         <details class="faq__item">
           <summary class="faq__question">What is MCP (Model Context Protocol)?</summary>
           <div class="faq__answer">
@@ -854,6 +886,7 @@
         <li><a href="https://www.npmjs.com/package/mcp-me" target="_blank" rel="noopener">npm</a></li>
         <li><a href="https://github.com/paladini/mcp-me/blob/main/docs/creating-plugins.md" target="_blank" rel="noopener">Plugin Guide</a></li>
         <li><a href="https://github.com/paladini/mcp-me/blob/main/docs/creating-generators.md" target="_blank" rel="noopener">Generator Guide</a></li>
+        <li><a href="https://github.com/paladini/mcp-me/blob/main/docs/publishing.md" target="_blank" rel="noopener">Publishing</a></li>
         <li><a href="https://github.com/paladini/mcp-me/blob/main/docs/schema-reference.md" target="_blank" rel="noopener">Schema Docs</a></li>
         <li><a href="https://github.com/paladini/mcp-me/blob/main/.github/CONTRIBUTING.md" target="_blank" rel="noopener">Contributing</a></li>
       </ul>

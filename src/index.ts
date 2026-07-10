@@ -12,4 +12,4 @@ export type { McpMeConfig } from "./loader.js";
 export type { ProfileCategory } from "./schema/index.js";
 export type { McpMePlugin, McpMePluginFactory, PluginResource, PluginTool, PluginPrompt } from "./plugin-engine/types.js";
 export type { GenerateOptions, GenerateResult } from "./generator.js";
-export type { PartialProfile, GeneratorSource } from "./generators/types.js";
+export { resolveProfileDir, getDefaultProfileDir, PROFILE_DIR_ENV } from "./profile-dir.js";

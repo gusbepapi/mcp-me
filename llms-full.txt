@@ -7,17 +7,40 @@
 mcp-me is an open-source Node.js CLI tool and MCP server that helps people create a structured digital identity that AI assistants can read. It solves the problem of AI assistants not knowing anything about the user they're talking to.
 
 With mcp-me, users can:
-1. Auto-generate a profile from 328 public APIs (GitHub, Medium, Strava, Duolingo, AniList, etc.)
+1. Auto-generate a profile from 329 public APIs (GitHub, Medium, Strava, Duolingo, AniList, etc.)
 2. Serve that profile as an MCP server that any AI assistant can connect to
 3. Extend with 13 built-in plugins for real-time data (Spotify now playing, GitHub repos, etc.)
 
 ## How it works
 
-1. User runs `mcp-me init ~/my-profile` → creates YAML templates + `.mcp-me.yaml` config
-2. User edits `.mcp-me.yaml` → uncomments data sources (e.g. `github: octocat`)
-3. User runs `mcp-me generate ~/my-profile` → fetches data from APIs, writes YAML files
-4. User runs `mcp-me serve ~/my-profile` → starts MCP server on stdio
+1. User runs `mcp-me init` → creates YAML templates + `.mcp-me.yaml` config in `~/.mcp-me`
+2. User edits `~/.mcp-me/.mcp-me.yaml` → uncomments data sources (e.g. `github: octocat`)
+3. User runs `mcp-me generate` → fetches data from APIs, writes YAML files
+4. User runs `mcp-me serve` → starts MCP server on stdio (no path argument needed)
 5. AI assistant connects to the MCP server → reads profile data, uses tools and prompts
+
+Profile directory resolution: CLI argument → `MCP_ME_PROFILE_DIR` env var → `~/.mcp-me`
+
+## One-Click Install
+
+- **Cursor:** `npx -y mcp-me serve` via deeplink (see README)
+- **VS Code:** `npx -y mcp-me serve` via `vscode:mcp/install` link
+- **Claude Desktop:** `.mcpb` bundle from GitHub Releases; `user_config.profileDir` maps to `MCP_ME_PROFILE_DIR`
+
+## MCP Assistant Configuration (zero-config)
+
+```json
+{
+  "mcpServers": {
+    "me": {
+      "command": "npx",
+      "args": ["-y", "mcp-me", "serve"]
+    }
+  }
+}
+```
+
+VS Code uses `"servers"` key instead of `"mcpServers"`. No profile path required — defaults to `~/.mcp-me`.
 
 ## Profile YAML Files
 
@@ -53,7 +76,7 @@ With mcp-me, users can:
 - technical_profile — Describe technical skills and stack
 - collaboration_fit — Evaluate fit for a project
 
-## Generator Categories (328 generators)
+## Generator Categories (329 generators)
 
 ### Code & Dev (23)
 github, gitlab, bitbucket, huggingface, kaggle, codeberg, codeforces, atcoder, topcoder, projecteuler, codingame, dmoj, kattis, sourcehut, gitea, forgejo, wandb, dagshub, codepen, codesandbox, replit, glitch, observablehq
@@ -122,7 +145,7 @@ Maker/Hardware (19), Nature (6), Finance/Crypto (19), Productivity (9), Video/St
 - YAML: yaml (npm)
 - CLI: Commander.js
 - Build: tsup (ESM + DTS)
-- Tests: Vitest (2187 tests)
+- Tests: Vitest (2205 tests)
 - Lint: ESLint 9 + Prettier
 
 ## Author

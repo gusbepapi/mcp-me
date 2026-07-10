@@ -17,6 +17,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-07-09
+
+### Added
+
+- **Default profile directory** — CLI commands (`init`, `serve`, `validate`, `generate`) now default to `~/.mcp-me`; override with `MCP_ME_PROFILE_DIR` or an explicit path argument
+- **Official MCP Registry** — `server.json` for publishing to registry.modelcontextprotocol.io; `mcpName` field in `package.json`
+- **One-click install** — Cursor deeplink badge and VS Code MCP install link in README; `npm run generate:install-links` script
+- **Claude Desktop Extension** — `.mcpb` bundle via `mcpb/manifest.json` and `npm run pack:mcpb`; attached to GitHub Releases
+- **npm Trusted Publishing** — CI workflow uses OIDC instead of `NPM_TOKEN`; `publishConfig.provenance` in `package.json`
+- **Publishing docs** — `docs/publishing.md` (maintainer guide) and `docs/directory-submissions.md` (visibility checklist)
+
+### Changed
+
+- **README** — Reworked Installation section with one-click badges, zero-config quick start, and updated AI assistant configuration examples
+- **Landing page** — Updated `docs/index.html` with one-click install buttons, zero-config commands, v0.6.0, and new FAQ entries
+- **LLM docs** — Updated `llms.txt` and `llms-full.txt` with default profile path, one-click install, and MCP config examples
+- **Agent instructions guide** — Updated `docs/ai-instructions.md` with zero-config MCP setup section
+- **CLI next-steps messages** — Simplified to `mcp-me validate` / `mcp-me serve` without requiring a path
+
 ## [0.5.0] - 2026-06-04
 
 ### Added

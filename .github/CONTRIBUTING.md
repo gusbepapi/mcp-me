@@ -2,6 +2,10 @@
 
 Thank you for your interest in contributing to mcp-me! Whether it's a new plugin, a bug fix, or documentation improvement, we appreciate your help.
 
+## Publishing & Releases
+
+Maintainers: see the [Publishing Guide](../docs/publishing.md) for npm, MCP Registry, and `.mcpb` release instructions.
+
 ## Ways to Contribute
 
 mcp-me has **two extension systems** — pick the one that fits your idea:

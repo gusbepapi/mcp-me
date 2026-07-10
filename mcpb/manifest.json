@@ -1,0 +1,47 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/mcpb/main/schemas/mcpb-manifest-v0.4.schema.json",
+  "manifest_version": "0.4",
+  "name": "mcp-me",
+  "display_name": "mcp-me — Personal Profile for AI",
+  "version": "0.6.0",
+  "description": "Expose your personal, professional, educational, and social profile to Claude via MCP. All data stays local in YAML files on your machine.",
+  "author": {
+    "name": "Fernando Paladini",
+    "url": "https://github.com/paladini"
+  },
+  "homepage": "https://github.com/paladini/mcp-me",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paladini/mcp-me"
+  },
+  "license": "MIT",
+  "keywords": ["mcp", "profile", "identity", "personal", "ai", "career", "skills"],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/cli.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/cli.js", "serve"],
+      "env": {
+        "MCP_ME_PROFILE_DIR": "${user_config.profileDir}"
+      }
+    }
+  },
+  "tools_generated": true,
+  "user_config": {
+    "profileDir": {
+      "type": "directory",
+      "title": "Profile Directory",
+      "description": "Folder containing your mcp-me YAML profile files. Run 'mcp-me init' first if you don't have one.",
+      "required": true,
+      "default": "${HOME}/.mcp-me"
+    }
+  },
+  "compatibility": {
+    "claude_desktop": ">=1.0.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  }
+}

@@ -7,4 +7,6 @@ coverage/
 .DS_Store
 *.log
 my-profile/
+.mcpb-staging/
+mcp-me.mcpb
 .vscode/

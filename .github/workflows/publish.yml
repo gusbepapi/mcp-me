@@ -1,0 +1,62 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm supports Trusted Publishing
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Pack MCPB bundle
+        run: npm run pack:mcpb
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+
+      - name: Install mcp-publisher
+        run: |
+          curl -sL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+          sudo mv mcp-publisher /usr/local/bin/
+
+      - name: Publish to MCP Registry
+        run: |
+          mcp-publisher login github-oidc
+          mcp-publisher publish
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: mcp-me.mcpb
+          generate_release_notes: true

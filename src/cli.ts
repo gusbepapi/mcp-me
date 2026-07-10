@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import { mkdir, access, writeFile } from "node:fs/promises";
-import { join, resolve, dirname } from "node:path";
+import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { createMcpMeServer } from "./server.js";
@@ -8,6 +8,7 @@ import { loadProfile, loadGeneratorsConfig } from "./loader.js";
 import { generateProfile } from "./generator.js";
 import { generators } from "./generators/index.js";
 import { initProfileDirectory } from "./init-profile.js";
+import { resolveProfileDir } from "./profile-dir.js";
 import { version } from "../package.json";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,10 +26,13 @@ program
 program
   .command("init")
   .description("Initialize a new profile directory with YAML templates")
-  .argument("<directory>", "Directory to create the profile in")
+  .argument(
+    "[directory]",
+    "Directory to create the profile in (defaults to ~/.mcp-me or MCP_ME_PROFILE_DIR)",
+  )
   .option("-f, --force", "Overwrite existing files", false)
-  .action(async (directory: string, options: { force: boolean }) => {
-    const targetDir = resolve(directory);
+  .action(async (directory: string | undefined, options: { force: boolean }) => {
+    const targetDir = resolveProfileDir(directory);
     const templatesDir = join(__dirname, "..", "templates");
 
     try {
@@ -44,8 +48,8 @@ program
       console.log();
       console.log("Next steps:");
       console.log(`  1. Edit the YAML files in ${targetDir}`);
-      console.log(`  2. Run: mcp-me validate ${directory}`);
-      console.log(`  3. Run: mcp-me serve ${directory}`);
+      console.log(`  2. Run: mcp-me validate`);
+      console.log(`  3. Run: mcp-me serve`);
     } catch (error) {
       console.error(`Failed to initialize profile: ${(error as Error).message}`);
       process.exit(1);
@@ -55,15 +59,18 @@ program
 program
   .command("serve")
   .description("Start the MCP server for your profile")
-  .argument("<directory>", "Profile directory to serve")
-  .action(async (directory: string) => {
-    const profileDir = resolve(directory);
+  .argument(
+    "[directory]",
+    "Profile directory to serve (defaults to ~/.mcp-me or MCP_ME_PROFILE_DIR)",
+  )
+  .action(async (directory: string | undefined) => {
+    const profileDir = resolveProfileDir(directory);
 
     try {
       await access(profileDir);
     } catch {
       console.error(`Profile directory not found: ${profileDir}`);
-      console.error(`Run "mcp-me init ${directory}" first.`);
+      console.error(`Run "mcp-me init" first to create your profile.`);
       process.exit(1);
     }
 
@@ -81,9 +88,12 @@ program
 program
   .command("validate")
   .description("Validate profile YAML files against schemas")
-  .argument("<directory>", "Profile directory to validate")
-  .action(async (directory: string) => {
-    const profileDir = resolve(directory);
+  .argument(
+    "[directory]",
+    "Profile directory to validate (defaults to ~/.mcp-me or MCP_ME_PROFILE_DIR)",
+  )
+  .action(async (directory: string | undefined) => {
+    const profileDir = resolveProfileDir(directory);
 
     try {
       await access(profileDir);
@@ -120,7 +130,10 @@ program
 const generateCmd = program
   .command("generate")
   .description("Auto-generate a profile from your online presence")
-  .argument("<directory>", "Directory to create the profile in");
+  .argument(
+    "[directory]",
+    "Directory to create the profile in (defaults to ~/.mcp-me or MCP_ME_PROFILE_DIR)",
+  );
 
 // Register CLI flags from generator metadata — no manual flag list needed
 for (const g of generators) {
@@ -128,8 +141,8 @@ for (const g of generators) {
 }
 generateCmd.option("-f, --force", "Overwrite existing files", false);
 
-generateCmd.action(async (directory: string, options: Record<string, string | boolean | undefined>) => {
-  const targetDir = resolve(directory);
+generateCmd.action(async (directory: string | undefined, options: Record<string, string | boolean | undefined>) => {
+  const targetDir = resolveProfileDir(directory);
   const { force, ...cliSources } = options;
   let hasSources = Object.values(cliSources).some(Boolean);
 
@@ -183,8 +196,8 @@ generateCmd.action(async (directory: string, options: Record<string, string | bo
     console.log();
     console.log("  Next steps:");
     console.log(`    1. Review and edit the YAML files in ${targetDir}`);
-    console.log(`    2. Run: mcp-me validate ${directory}`);
-    console.log(`    3. Run: mcp-me serve ${directory}`);
+    console.log(`    2. Run: mcp-me validate`);
+    console.log(`    3. Run: mcp-me serve`);
   } catch (error) {
     console.error(`\n  ✗ Failed to generate profile: ${(error as Error).message}`);
     process.exit(1);

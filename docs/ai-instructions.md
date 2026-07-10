@@ -8,9 +8,10 @@ Combined with mcp-me, these files instruct AI agents to **automatically consult 
 
 ## How it works
 
-1. You run `mcp-me serve` to start your profile MCP server.
-2. You drop an instruction file into your project (or globally).
-3. The AI reads the instruction file on startup and knows to call `ask_about_me` when context about you would help.
+1. You install mcp-me and configure it in your AI assistant (one-click for Cursor/VS Code, or `mcp-me serve` via MCP config).
+2. You run `mcp-me init` once to create your profile in `~/.mcp-me`.
+3. You drop an instruction file into your project (or globally).
+4. The AI reads the instruction file on startup and knows to call `ask_about_me` when context about you would help.
 
 Instead of writing:
 
@@ -21,6 +22,31 @@ You just write:
 > "Write me a README for this project."
 
 ...and the AI fetches your profile automatically.
+
+---
+
+## MCP Server Setup
+
+mcp-me defaults to `~/.mcp-me` — no profile path is required in MCP config.
+
+### One-click install
+
+Use the install badges in the [README](../README.md#one-click-install) for Cursor and VS Code. For Claude Desktop, install the `.mcpb` bundle from [GitHub Releases](https://github.com/paladini/mcp-me/releases/latest).
+
+### Manual MCP config
+
+```json
+{
+  "mcpServers": {
+    "me": {
+      "command": "npx",
+      "args": ["-y", "mcp-me", "serve"]
+    }
+  }
+}
+```
+
+VS Code uses the `"servers"` key (see [README](../README.md#vs-code-github-copilot)). Override the profile location with `MCP_ME_PROFILE_DIR` if needed.
 
 ---
 
@@ -111,7 +137,7 @@ mkdir -p .github
 cp "$(npm root -g)/mcp-me/templates/.github/copilot-instructions.md" .github/copilot-instructions.md
 ```
 
-3. Make sure mcp-me is configured in `.vscode/mcp.json` (see the [main README](../README.md#configure-your-ai-assistant) for the full VS Code setup).
+3. Make sure mcp-me is configured in `.vscode/mcp.json` with zero-config args: `["-y", "mcp-me", "serve"]` (see the [main README](../README.md#configure-your-ai-assistant) for the full VS Code setup).
 
 ### Global instructions (all projects)
 
