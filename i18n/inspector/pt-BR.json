@@ -1,0 +1,13 @@
+{
+  "_comment": "Translating only confirmed genuine MCP Inspector interface copy, never vendored dependency strings such as those from Zod or Radix UI. Each key is matched as an exact, literal substring against the minified bundle, since minification preserves string literals verbatim while mangling identifiers",
+  "When the server requests LLM sampling, requests will appear here for approval.":
+    "Quando o servidor solicitar amostragem de LLM, as solicitações aparecerão aqui para aprovação.",
+  "Client-side timeout (ms) - Inspector will cancel requests after this time":
+    "Tempo limite do lado do cliente (ms) — o Inspector cancelará as solicitações após esse tempo",
+  "Reset Timeout on Progress":
+    "Reiniciar tempo limite em caso de progresso",
+  "Maximum Total Timeout":
+    "Tempo limite total máximo",
+  "Inspector Proxy Address":
+    "Endereço do proxy do Inspector"
+}

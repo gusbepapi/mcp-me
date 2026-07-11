@@ -1,0 +1,742 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Resume",
+  "description": "A document that outlines a person's work experience, education, skills and achievements.",
+  "properties": {
+    "website": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/UrlDPValue"
+      }
+    },
+    "candidateName": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "familyName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "middleName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "preferredGivenName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "suffix": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": []
+    },
+    "dateOfBirth": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "headshot": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "nationality": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "email": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "phoneNumber": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PhoneNumberDetails"
+      }
+    },
+    "location": {
+      "$ref": "#/definitions/Location"
+    },
+    "availability": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "preferredWorkLocation": {
+      "$ref": "#/definitions/Location"
+    },
+    "willingToRelocate": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "objective": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expectedSalary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "educationMinor": {
+            "type": "array",
+            "items": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "educationAccreditation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "educationLevel": {
+            "type": "object",
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "educationOrganization": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "educationLocation": {
+            "$ref": "#/definitions/Location"
+          },
+          "educationMajor": {
+            "type": "array",
+            "items": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "educationDates": {
+            "$ref": "#/definitions/DateRange"
+          },
+          "educationGrade": {
+            "type": "object",
+            "properties": {
+              "gradeScore": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "gradeUnit": {
+                "type": "object",
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "required": [
+                  "value"
+                ],
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "required": []
+          }
+        },
+        "required": []
+      }
+    },
+    "workExperience": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "workExperienceJobTitle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "workExperienceOrganization": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "workExperienceLocation": {
+            "$ref": "#/definitions/Location"
+          },
+          "workExperienceDates": {
+            "$ref": "#/definitions/DateRange"
+          },
+          "workExperienceDescription": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "workExperienceType": {
+            "type": "object",
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": []
+      }
+    },
+    "totalYearsExperience": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "project": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "projectTitle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "projectDescription": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "projectDates": {
+            "$ref": "#/definitions/DateRange"
+          },
+          "projectOrganization": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "projectType": {
+            "type": "object",
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": []
+      }
+    },
+    "achievement": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "association": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "hobby": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "patent": {
+      "type": "array",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "publication": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "publicationTitle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "publicationDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "publicationJournalName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": []
+      }
+    },
+    "rightToWork": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "referee": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "refereeName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "refereeEmail": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "refereeJobTitle": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "refereeOrganization": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "refereePhone": {
+            "$ref": "#/definitions/PhoneNumberDetails"
+          }
+        },
+        "required": []
+      }
+    },
+    "language": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "languageName": {
+            "type": "object",
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "required": [
+              "value",
+              "label"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "languageProficiency": {
+            "type": "object",
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": []
+      }
+    },
+    "skill": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "required": [
+          "type",
+          "emsiId",
+          "isLanguage",
+          "isSoftware",
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "emsiId": {
+            "type": "string"
+          },
+          "infoUrl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "isLanguage": {
+            "type": "boolean"
+          },
+          "isSoftware": {
+            "type": "boolean"
+          },
+          "subCategory": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [],
+  "definitions": {
+    "UrlDPValue": {
+      "title": "UrlDPValue",
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "domain"
+      ]
+    },
+    "PhoneNumberDetails": {
+      "type": "object",
+      "required": [
+        "raw_text"
+      ],
+      "properties": {
+        "raw_text": {
+          "type": "string"
+        },
+        "formatted_number": {
+          "type": "string"
+        },
+        "country_code": {
+          "type": "string"
+        },
+        "international_country_code": {
+          "type": "integer"
+        },
+        "national_number": {
+          "type": "string"
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "formatted": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256,
+          "title": "Formatted"
+        },
+        "street_number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "title": "Street number"
+        },
+        "street": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "title": "Street"
+        },
+        "apartment_number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "title": "Apartment number"
+        },
+        "city": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "title": "City"
+        },
+        "postal_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "title": "Postal code"
+        },
+        "state": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "title": "State"
+        },
+        "state_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 10,
+          "title": "State code"
+        },
+        "country": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "title": "Country"
+        },
+        "raw_input": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 256,
+          "title": "Raw input"
+        },
+        "country_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 3,
+          "title": "Country code"
+        },
+        "latitude": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "title": "Latitude"
+        },
+        "longitude": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "title": "Longitude"
+        },
+        "place_id": {
+          "type": "string",
+          "minLength": 1,
+          "title": "Place id"
+        },
+        "po_box": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100,
+          "title": "Po box"
+        }
+      }
+    },
+    "DateRange": {
+      "title": "DateRange",
+      "type": "object",
+      "properties": {
+        "start": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/Date"
+            }
+          ],
+          "default": null
+        },
+        "end": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/Date"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": []
+    },
+    "Date": {
+      "title": "Date",
+      "type": "object",
+      "properties": {
+        "date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "is_current": {
+          "type": "boolean",
+          "default": false
+        },
+        "day": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "month": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "year": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": []
+    }
+  }
+}
