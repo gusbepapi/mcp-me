@@ -66,4 +66,11 @@ describe("scoreAllEngines", () => {
     expect(reportlab).toBeDefined();
     expect(reportlab.rationale.some((r) => r.includes("empirically confirmed"))).toBe(true);
   });
+
+  it("includes `weasyprint`, confirmed via `pdftotext` against a real render, sharing `pandoc`’s HTML input yet a different distinct PDF writer", () => {
+    const scores = scoreAllEngines();
+    const weasyprint = scores.find((s) => s.engine === "weasyprint")!;
+    expect(weasyprint).toBeDefined();
+    expect(weasyprint.rationale.some((r) => r.includes("empirically confirmed"))).toBe(true);
+  });
 });

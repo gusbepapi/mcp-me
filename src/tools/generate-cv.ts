@@ -9,11 +9,11 @@ import { buildCvIR } from "../render/ir.js";
 import { renderCv, renderCvAllEngines } from "../render/index.js";
 import type { EngineName } from "../render/engines/types.js";
 
-const ENGINE_NAMES: readonly EngineName[] = ["latex", "typst", "pandoc", "reportlab"];
+const ENGINE_NAMES: readonly EngineName[] = ["latex", "typst", "pandoc", "reportlab", "weasyprint"];
 
 const generateCvInputSchema = {
   engine: z
-    .enum(["latex", "typst", "pandoc", "reportlab", "all"])
+    .enum(["latex", "typst", "pandoc", "reportlab", "weasyprint", "all"])
     .default("all")
     .describe(
       "Which render engine to use. Passing 'all' renders through every engine, " +
@@ -62,9 +62,11 @@ export function registerCvTools(
       title: "Generate curriculum vitae",
       description:
         "Generating a curriculum vitae PDF from this person's profile data (identity, " +
-        "career, and skills), through one of four rendering engines: LaTeX (moderncv, " +
+        "career, and skills), through one of five rendering engines: LaTeX (moderncv, " +
         "via xelatex), Typst (native compiler), Pandoc (Markdown through a Chromium " +
-        "print pipeline), or ReportLab (Python Platypus text flow engine). Passing " +
+        "print pipeline), ReportLab (Python Platypus text flow engine), or WeasyPrint " +
+        "(the identical Pandoc-generated HTML, through WeasyPrint’s own CSS engine " +
+        "rather than a browser). Passing " +
         "'all' renders every engine, which is the input the ATS-parseability " +
         "comparison depends upon",
       inputSchema: generateCvInputSchema,
@@ -81,13 +83,16 @@ export function registerCvTools(
 
         for (const name of ENGINE_NAMES) {
           const result = results[name];
+
           if (result) {
             lines.push(`- ${name}: ${result.outputPath} (${result.bytesWritten} bytes)`);
           }
         }
+
         for (const { engine: name, reason } of skipped) {
           lines.push(`- ${name}: skipped, ${reason}`);
         }
+
         for (const { engine: name, error } of failed) {
           lines.push(`- ${name}: failed, ${error}`);
         }
@@ -113,6 +118,7 @@ export function registerCvTools(
       const result = await renderCv(engine, ir, {
         outputPath: join(targetDirectory, `cv-${engine}.pdf`),
       });
+
       return {
         content: [
           {

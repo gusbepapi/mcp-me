@@ -32,7 +32,7 @@ async function main(): Promise<void> {
 
   if (!profileDir || !pdfDir) {
     console.error("Usage: tsx scripts/build-dashboard.ts <profileDir> <pdfDir>");
-    console.error("  <pdfDir> must contain cv-latex.pdf, cv-typst.pdf, cv-pandoc.pdf, cv-reportlab.pdf");
+    console.error("  <pdfDir> must contain cv-latex.pdf, cv-typst.pdf, cv-pandoc.pdf, cv-reportlab.pdf, cv-weasyprint.pdf");
     process.exit(1);
   }
 
@@ -55,7 +55,7 @@ async function main(): Promise<void> {
     skills: skills.success ? skills.data : undefined,
   });
 
-  const engines: EngineName[] = ["latex", "typst", "pandoc", "reportlab"];
+  const engines: EngineName[] = ["latex", "typst", "pandoc", "reportlab", "weasyprint"];
   const pdfPaths = Object.fromEntries(engines.map((e) => [e, join(pdfDir, "pdf", `cv-${e}.pdf`)]));
 
   await mkdir(ASSETS_DIR, { recursive: true });

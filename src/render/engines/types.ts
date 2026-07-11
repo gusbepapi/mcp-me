@@ -11,7 +11,7 @@ export interface RenderResult {
   readonly bytesWritten: number;
 }
 
-export type EngineName = "latex" | "typst" | "pandoc" | "reportlab";
+export type EngineName = "latex" | "typst" | "pandoc" | "reportlab" | "weasyprint";
 
 /**
  * Contract every rendering engine must satisfy. Each engine receives the same `CvIR`, so parity across formats is a property of the shared assembly step, not of four independently maintained templates

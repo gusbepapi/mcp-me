@@ -8,6 +8,7 @@ import type { CvIR } from "../ir.js";
 import type { RenderEngine, RenderOptions, RenderResult } from "./types.js";
 import { resolveGoogleSansFonts } from "../fonts.js";
 import { pdfOutputPath } from "../output-paths.js";
+import { buildFontFaceStyleBlock } from "./html-font-embed.js";
 
 const execFileAsync = promisify(execFile);
 
@@ -77,11 +78,14 @@ async function htmlToPdfViaPuppeteer(htmlPath: string, outputPath: string): Prom
     headless: true,
     args: ["--allow-file-access-from-files"],
   });
+
   try {
     const page = await browser.newPage();
     await page.goto(`file://${htmlPath}`, { waitUntil: "networkidle0" });
     await page.pdf({ path: outputPath, format: "a4", printBackground: true });
-  } finally {
+  } 
+  
+  finally {
     await browser.close();
   }
 }
@@ -98,16 +102,11 @@ export const pandocEngine: RenderEngine = {
 
     const fonts = resolveGoogleSansFonts();
     const html = await readFile(htmlPath, "utf-8");
-    const fontFaceRules = `
-      @font-face { font-family: "Google Sans"; src: url("file://${fonts.regular}"); font-weight: normal; font-style: normal; }
-      @font-face { font-family: "Google Sans"; src: url("file://${fonts.bold}"); font-weight: bold; font-style: normal; }
-      @font-face { font-family: "Google Sans"; src: url("file://${fonts.italic}"); font-weight: normal; font-style: italic; }
-      @font-face { font-family: "Google Sans"; src: url("file://${fonts.boldItalic}"); font-weight: bold; font-style: italic; }
-    `;
     const styled = html.replace(
       "</head>",
-      `<style>${fontFaceRules} body { font-family: "Google Sans", sans-serif; margin: 2cm; }</style></head>`,
+      `<style>${buildFontFaceStyleBlock(fonts)}</style></head>`,
     );
+
     await writeFile(htmlPath, styled, "utf-8");
 
     const finalPdfPath = pdfOutputPath(options.outputPath);

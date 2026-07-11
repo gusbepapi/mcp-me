@@ -83,5 +83,17 @@ export async function checkEngineAvailability(engine: EngineName): Promise<Engin
         ? { available: true }
         : { available: false, reason: "the `reportlab` package is not installed" };
     }
+
+    case "weasyprint": {
+      const hasPandoc = await commandExists("pandoc");
+
+      if (!hasPandoc) return { available: false, reason: "`pandoc` is not on PATH" };
+
+      const hasWeasyPrint = await commandExists("weasyprint");
+
+      return hasWeasyPrint
+        ? { available: true }
+        : { available: false, reason: "the `weasyprint` command is not on PATH" };
+    }
   }
 }

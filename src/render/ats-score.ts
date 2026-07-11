@@ -34,6 +34,13 @@ const ENGINE_DESCRIPTIONS: Record<EngineName, EngineDescription> = {
       "Platypus text-flow engine (`SimpleDocTemplate`, `Paragraph`, `Frame`), a " +
       "high-level layout system with real word-wrapping and pagination",
   },
+  weasyprint: {
+    pdfWriter: "WeasyPrint’s own native PDF writer",
+    layoutMechanism:
+      "WeasyPrint’s own CSS engine, not a browser; shares the identical Pandoc-generated " +
+      "HTML input as the `pandoc` engine, so any difference between the two columns reflects " +
+      "a layout engine distinction, not a difference in content",
+  },
 };
 
 export function describeEngine(engine: EngineName): EngineDescription {
@@ -87,6 +94,16 @@ const ENGINE_PROFILES: Record<
       "Producer: ReportLab PDF Library, a genuinely distinct writer family from every other engine",
     ],
   },
+  weasyprint: {
+    score: 82,
+    pdfWriter: "WeasyPrint’s own native PDF writer",
+    layoutMechanism: "WeasyPrint’s own CSS engine, sharing pandoc's HTML input",
+    rationale: [
+      "empirically confirmed via `pdftotext -bbox`: developer, Meridiana, and architecture all remain whole",
+      "Producer: WeasyPrint 69.0, genuinely distinct from every other engine’s writer, despite sharing `pandoc`’s identical HTML input",
+      "shares the identical HTML input as pandoc, so the score difference between the two reflects the layout engine alone, not a content difference",
+    ],
+  },
 };
 
 export function bandFor(score: number): AtsScore["band"] {
@@ -124,6 +141,6 @@ export function scoreAts(engine: EngineName): AtsScore {
 }
 
 export function scoreAllEngines(): readonly AtsScore[] {
-  const names: EngineName[] = ["latex", "typst", "pandoc", "reportlab"];
+  const names: EngineName[] = ["latex", "typst", "pandoc", "reportlab", "weasyprint"];
   return names.map(scoreAts);
 }

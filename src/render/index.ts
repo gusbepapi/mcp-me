@@ -4,6 +4,7 @@ import { latexEngine } from "./engines/latex.js";
 import { typstEngine } from "./engines/typst.js";
 import { pandocEngine } from "./engines/pandoc.js";
 import { reportlabEngine } from "./engines/reportlab.js";
+import { weasyprintEngine } from "./engines/weasyprint.js";
 import { checkEngineAvailability } from "./engine-availability.js";
 
 export type { CvIR } from "./ir.js";
@@ -25,6 +26,7 @@ const engines: Record<EngineName, { render(ir: CvIR, options: RenderOptions): Pr
   typst: typstEngine,
   pandoc: pandocEngine,
   reportlab: reportlabEngine,
+  weasyprint: weasyprintEngine,
 };
 
 /**
@@ -36,9 +38,11 @@ export async function renderCv(
   options: RenderOptions,
 ): Promise<RenderResult> {
   const engine = engines[engineName];
+
   if (!engine) {
     throw new Error(`Unknown render engine: ${engineName}`);
   }
+
   return engine.render(ir, options);
 }
 
@@ -52,20 +56,24 @@ export async function renderCvAllEngines(
   ir: CvIR,
   outputDirectory: string,
 ): Promise<RenderAllEnginesResult> {
-  const names: EngineName[] = ["latex", "typst", "pandoc", "reportlab"];
+  const names: EngineName[] = ["latex", "typst", "pandoc", "reportlab", "weasyprint"];
   const results: Partial<Record<EngineName, RenderResult>> = {};
   const skipped: { engine: EngineName; reason: string }[] = [];
   const failed: { engine: EngineName; error: string }[] = [];
 
   for (const name of names) {
     const availability = await checkEngineAvailability(name);
+
     if (!availability.available) {
       skipped.push({ engine: name, reason: availability.reason ?? "unavailable" });
       continue;
     }
+
     try {
       results[name] = await renderCv(name, ir, { outputPath: `${outputDirectory}/cv-${name}.pdf` });
-    } catch (error) {
+    } 
+    
+    catch (error) {
       failed.push({ engine: name, error: error instanceof Error ? error.message : String(error) });
     }
   }
