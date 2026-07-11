@@ -27,7 +27,8 @@
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "pack:mcpb": "node scripts/pack-mcpb.mjs",
-    "generate:install-links": "node scripts/generate-install-links.mjs"
+    "generate:install-links": "node scripts/generate-install-links.mjs",
+    "validate:open-plugin": "node scripts/validate-open-plugin.mjs"
   },
   "keywords": [
     "mcp",

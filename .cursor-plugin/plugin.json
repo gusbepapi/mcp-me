@@ -1,0 +1,19 @@
+{
+  "name": "mcp-me",
+  "version": "0.6.0",
+  "description": "Digital identity layer for AI — personal profile via MCP",
+  "author": {
+    "name": "Fernando Paladini",
+    "url": "https://github.com/paladini"
+  },
+  "repository": "https://github.com/paladini/mcp-me",
+  "license": "MIT",
+  "keywords": ["mcp", "profile", "identity", "personal", "ai"],
+  "logo": "docs/assets/og-image.svg",
+  "rules": "./rules/",
+  "agents": "./agents/",
+  "skills": "./skills/",
+  "commands": "./commands/",
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": "./mcp.json"
+}

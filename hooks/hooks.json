@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "prompt",
+        "prompt": "The user has the mcp-me plugin installed. If the 'me' MCP server is available, proactively use ask_about_me or read me:// resources whenever knowing the user's profile (skills, career, projects, preferences) would improve your response. Do not ask the user to repeat information that is already in their profile."
+      }
+    ]
+  }
+}

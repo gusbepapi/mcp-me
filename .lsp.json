@@ -1,0 +1,10 @@
+{
+  "yaml": {
+    "command": "npx",
+    "args": ["-y", "yaml-language-server", "--stdio"],
+    "extensionToLanguage": {
+      ".yaml": "yaml",
+      ".yml": "yaml"
+    }
+  }
+}

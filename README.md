@@ -134,6 +134,22 @@ All commands work with `npx` (zero install) or with `mcp-me` directly if install
 
 Use the [one-click install badges](#one-click-install) above. After installing, run `mcp-me init` to create your profile.
 
+### Cursor Plugin (Open Plugins)
+
+mcp-me ships as a full [Open Plugins](https://open-plugins.com) plugin for Cursor. Install from [cursor.directory](https://cursor.directory) or clone the repo — the plugin auto-detects all components:
+
+| Component | Location | Purpose |
+|---|---|---|
+| MCP Server | [`mcp.json`](mcp.json) | Zero-config `npx -y mcp-me serve` |
+| Rules | [`rules/`](rules/) | Always consult profile before answering |
+| Skills | [`skills/`](skills/) | Profile usage and setup guides |
+| Agents | [`agents/`](agents/) | Profile assistant and intro writer |
+| Commands | [`commands/`](commands/) | `/ask-about-me` and `/introduce-me` |
+| Hooks | [`hooks/hooks.json`](hooks/hooks.json) | Session-start profile reminder |
+| LSP | [`.lsp.json`](.lsp.json) | YAML language server for profile files |
+
+Validate the plugin structure: `npm run validate:open-plugin`
+
 ### Windsurf
 
 Add to `~/.codeium/windsurf/mcp_config.json`:

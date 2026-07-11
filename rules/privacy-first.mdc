@@ -1,0 +1,12 @@
+---
+description: Remind that mcp-me profile data stays local on disk and is never sent to the cloud.
+globs: ["**/*.yaml", "**/.mcp-me.yaml"]
+---
+
+When editing mcp-me profile YAML files:
+
+- All profile data stays **local** in `~/.mcp-me` (or `MCP_ME_PROFILE_DIR`) — nothing is uploaded to any cloud.
+- Profile files are: `identity.yaml`, `career.yaml`, `skills.yaml`, `interests.yaml`, `personality.yaml`, `goals.yaml`, `projects.yaml`, `faq.yaml`.
+- Configuration lives in `.mcp-me.yaml` (generators and plugins) — separate from profile data.
+- Run `mcp-me validate` after edits to check schema compliance.
+- Run `mcp-me generate` to refresh profile data from public APIs listed in `.mcp-me.yaml`.

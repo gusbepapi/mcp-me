@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "me": {
+      "command": "npx",
+      "args": ["-y", "mcp-me", "serve"]
+    }
+  }
+}

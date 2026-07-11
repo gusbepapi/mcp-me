@@ -17,6 +17,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Open Plugins structure** — Full Cursor/Open Plugins layout at repo root for auto-detect on cursor.directory: `.cursor-plugin/plugin.json`, `mcp.json`, `rules/`, `skills/`, `agents/`, `commands/`, `hooks/hooks.json`, `.lsp.json`
+- **Plugin validation** — `npm run validate:open-plugin` script and `tests/open-plugin-structure.test.ts`
+
+### Changed
+
+- **Directory submissions** — Opened Chrome handoff for mcp.so, Smithery, and Cursor Directory; built `mcp-me.mcpb` for Smithery; pushed wong2/awesome-mcp-servers PR branch; verified PulseMCP not yet indexed (registry active since 2026-07-10)
+- **Cursor Directory** — Submission path updated to `cursor.directory/plugins/new` Auto (GitHub) now that Open Plugins components are in the repo
+
 ## [0.6.0] - 2026-07-09
 
 ### Added

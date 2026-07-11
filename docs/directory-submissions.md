@@ -29,18 +29,20 @@ Use these details for all directory submissions:
 
 | Directory | URL | Status | Notes |
 |-----------|-----|--------|-------|
-| Cursor MCP Directory | https://cursor.com (developer portal) | Pending | Submit after npm + registry publish; include deeplink |
+| Cursor Directory (Plugin) | https://cursor.directory/plugins/new | **Ready (Auto)** | Open Plugins structure in repo root; submit via Auto (GitHub) → `https://github.com/paladini/mcp-me` → Scan repo |
+| Cursor Directory (MCP manual) | https://cursor.directory/mcp/new | Fallback | Manual form if plugin auto-detect is unavailable |
 | Glama | https://glama.ai/mcp/servers | **Indexed** | https://glama.ai/mcp/servers/paladini/mcp-me (auto-index + `glama.json`) |
-| Smithery | https://smithery.ai | Pending login | Run `smithery auth login` then `smithery mcp publish ./mcp-me.mcpb -n paladini/mcp-me` |
-| mcp.so | https://mcp.so | Pending login | Submit at https://mcp.so/submit (requires GitHub/Google sign-in) |
-| PulseMCP | https://www.pulsemcp.com | Pending auto-sync | Usually indexes from MCP Registry within 24–48h |
+| Smithery | https://smithery.ai/new | **Ready (Chrome)** | Upload `mcp-me.mcpb` at smithery.ai/new after GitHub sign-in; CLI: `smithery mcp publish ./mcp-me.mcpb -n paladini/mcp-me` |
+| mcp.so | https://mcp.so/submit | **Ready (Chrome)** | Submit `https://github.com/paladini/mcp-me` after GitHub sign-in; complete draft to publish |
+| PulseMCP | https://www.pulsemcp.com | **Pending sync** | Registry active since 2026-07-10; not indexed yet — expect 24–48h auto-sync |
 
 ## Community Lists
 
 | List | URL | Status | Notes |
 |------|-----|--------|-------|
-| awesome-mcp-servers | https://github.com/punkpeye/awesome-mcp-servers | **Listed** | Already in README |
-| modelcontextprotocol/servers | https://github.com/modelcontextprotocol/servers | Pending | Community servers list PR if applicable |
+| awesome-mcp-servers (punkpeye) | https://github.com/punkpeye/awesome-mcp-servers | **Listed** | Already in README |
+| awesome-mcp-servers (wong2 / mcpservers.org) | https://github.com/wong2/awesome-mcp-servers | **PR ready** | Branch `add-mcp-me` pushed to fork; open PR in Chrome: https://github.com/paladini/awesome-mcp-servers-1/pull/new/add-mcp-me |
+| modelcontextprotocol/servers | https://github.com/modelcontextprotocol/servers | **N/A** | No longer accepts community listings — use MCP Registry instead (already published) |
 
 ## awesome-mcp-servers PR Template
 
@@ -61,13 +63,15 @@ After the first `v0.6.0` tag push, verify:
 - [x] MCP Registry: `io.github.paladini/mcp-me` active
 - [x] GitHub Release: `mcp-me.mcpb` attached at https://github.com/paladini/mcp-me/releases/tag/v0.6.0
 - [x] Glama: https://glama.ai/mcp/servers/paladini/mcp-me returns 200
-- [x] awesome-mcp-servers: already listed
+- [x] awesome-mcp-servers (punkpeye): already listed
 - [ ] Cursor deeplink installs successfully (user test)
 - [ ] VS Code install link works (user test)
 - [ ] Claude Desktop `.mcpb` installs and prompts for profile directory (user test)
-- [ ] mcp.so submission (requires sign-in at mcp.so)
-- [ ] Smithery MCPB publish (requires `smithery auth login`)
-- [ ] PulseMCP auto-index (wait 24–48h)
+- [ ] mcp.so submission (Chrome handoff opened 2026-07-10 — sign in + submit repo URL)
+- [ ] Smithery MCPB publish (Chrome handoff opened 2026-07-10 — upload `mcp-me.mcpb`)
+- [ ] Cursor Directory plugin submission (Auto GitHub scan at cursor.directory/plugins/new)
+- [ ] wong2/awesome-mcp-servers PR (branch ready — click Create PR in Chrome)
+- [ ] PulseMCP auto-index (registry active 2026-07-10; not indexed yet — wait 24–48h)
 
 ## Social Launch (Optional)
 
