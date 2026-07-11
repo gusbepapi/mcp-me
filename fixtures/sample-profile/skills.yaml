@@ -1,0 +1,39 @@
+technical:
+  - name: C#
+    category: programming languages
+  - name: Go
+    category: programming languages
+  - name: JavaScript
+    category: programming languages
+  - name: PHP
+    category: programming languages
+  - name: Python
+    category: programming languages
+  - name: PostgreSQL
+    category: databases
+  - name: MySQL
+    category: databases
+  - name: Angular
+    category: frameworks
+  - name: React
+    category: frameworks
+  - name: WordPress
+    category: frameworks
+
+tools:
+  - name: Linux
+    category: operating systems
+  - name: Docker
+    category: cloud infrastructure
+  - name: Amazon Web Services
+    category: cloud infrastructure
+  - name: GitHub Actions
+    category: cloud infrastructure
+  - name: GitHub
+    category: version control
+  - name: GitLab
+    category: version control
+
+soft:
+  - name: Written communication
+  - name: Team leadership

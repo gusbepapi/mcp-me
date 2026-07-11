@@ -1,0 +1,31 @@
+name: Lorenzo Ferraro
+nickname: Full-stack developer and open-data researcher
+bio: >-
+  Operating as a Software Engineer, focusing on high-performance projects
+  and technological innovation, with or without cloud infrastructure and
+  artificial intelligence assistance.
+location:
+  city: Bologna
+  state: Emilia-Romagna
+  country: Italy
+  timezone: Europe/Rome
+contact:
+  email: lorenzo.ferraro@example.com
+  social:
+    - platform: linkedin
+      url: https://linkedin.com/in/lorenzoferraro-example
+    - platform: github
+      url: https://github.com/lferraro-example
+    - platform: gitlab
+      url: https://gitlab.com/lferraro-example
+languages:
+  - language: Italian
+    proficiency: native
+  - language: English
+    proficiency: fluent
+  - language: French
+    proficiency: fluent
+  - language: Spanish
+    proficiency: advanced
+  - language: German
+    proficiency: intermediate

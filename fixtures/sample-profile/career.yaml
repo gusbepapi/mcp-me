@@ -1,0 +1,79 @@
+experience:
+  - title: Software architect, full-stack developer and open-data researcher
+    company: Meridiana Analytics
+    location: EU
+    start_date: "2024-07"
+    end_date: "2026-02"
+    current: false
+    description: International Business Development, open civic data
+    highlights:
+      - >-
+        Open civic data engineering: performing rigorous archival research
+        through public registries, reconstructing fragmented historical
+        metadata to restore civic records
+      - >-
+        Automated documental pipelines: architecting an automation engine
+        based on Python, using Markdown and Pandoc to transform complex
+        civic datasets into standardised HTML and high-fidelity PDF outputs
+      - >-
+        Full-stack optimisation (PHP and WordPress): designing a
+        personalised, low-dependency web infrastructure, removing
+        superfluous JavaScript plugins and libraries to maximise performance
+      - >-
+        Systemic unification and overload mitigation: identifying and
+        neutralising critical background-process emergencies, reducing
+        system footprint from 300 MB to 90 MB in ten minutes without
+        impacting the site, the disk, or the users
+
+  - title: Software engineer
+    company: Banca Adriatica
+    start_date: "2020-07"
+    end_date: "2024-02"
+    current: false
+    highlights:
+      - >-
+        High-risk financial infrastructure architecture: engineering and
+        maintaining critical banking systems with a principal focus on
+        security, scalability, and high availability
+      - >-
+        Rigorous engineering methodology application: implementing software
+        architecture standards and modern engineering practices, including
+        structured version control, CI and CD pipelines, and code review
+      - >-
+        Multidisciplinary performance optimisation: collaborating with
+        agile, cross-functional teams (Scrum and Kanban) to refine system
+        performance
+
+  - title: Full-stack developer
+    company: Sviluppo Parallelo
+    start_date: "2019-10"
+    end_date: "2020-06"
+    current: false
+    highlights:
+      - >-
+        Modifying projects to correct code errors, update interfaces, and
+        improve overall performance
+      - >-
+        Responsible for back-end development, creating code enabling site
+        and application functions to execute correctly
+
+education:
+  - institution: Università di Bologna
+    degree: Postgraduate in Data Science
+    start_date: "2020"
+    current: false
+    description: Started in 2020, currently paused
+
+  - institution: Università degli Studi di Ferrara
+    degree: Bachelor in Computer Science
+    start_date: "2013"
+    end_date: "2017"
+    current: false
+
+certifications:
+  - name: Microsoft Azure Administrator
+    issuer: Meridiana Solutions
+    date: "2021-03-23"
+  - name: Workshop on Advanced AI-Assisted Development
+    issuer: Tech Leads Club
+    date: "2025-02-11"
