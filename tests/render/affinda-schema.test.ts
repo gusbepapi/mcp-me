@@ -20,7 +20,7 @@ describe("buildAffindaExport", () => {
     const ir = buildCvIR({ identity });
     const resume = buildAffindaExport(ir);
     expect(resume.location?.country).toBe("Brazil");
-    expect(resume.location?.formatted).toBe("Aparecida, SP, United States");
+    expect(resume.location?.formatted).toBe("Aparecida, SP, Brazil");
   });
 
   it("mapping experience entries onto `workExperienceJobTitle` and `workExperienceOrganization`", () => {

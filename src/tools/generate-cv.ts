@@ -9,11 +9,11 @@ import { buildCvIR } from "../render/ir.js";
 import { renderCv, renderCvAllEngines } from "../render/index.js";
 import type { EngineName } from "../render/engines/types.js";
 
-const ENGINE_NAMES: readonly EngineName[] = ["latex", "typst", "pandoc"];
+const ENGINE_NAMES: readonly EngineName[] = ["latex", "typst", "pandoc", "reportlab"];
 
 const generateCvInputSchema = {
   engine: z
-    .enum(["latex", "typst", "pandoc", "all"])
+    .enum(["latex", "typst", "pandoc", "reportlab", "all"])
     .default("all")
     .describe(
       "Which render engine to use. Passing 'all' renders through every engine, " +
@@ -62,9 +62,9 @@ export function registerCvTools(
       title: "Generate curriculum vitae",
       description:
         "Generating a curriculum vitae PDF from this person's profile data (identity, " +
-        "career, and skills), through one of three rendering engines: LaTeX (moderncv, " +
-        "via xelatex), Typst (native compiler), or Pandoc (Markdown through a Chromium " +
-        "print pipeline). Passing " +
+        "career, and skills), through one of four rendering engines: LaTeX (moderncv, " +
+        "via xelatex), Typst (native compiler), Pandoc (Markdown through a Chromium " +
+        "print pipeline), or ReportLab (Python Platypus text flow engine). Passing " +
         "'all' renders every engine, which is the input the ATS-parseability " +
         "comparison depends upon",
       inputSchema: generateCvInputSchema,

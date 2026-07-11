@@ -59,4 +59,11 @@ describe("scoreAllEngines", () => {
     const pandoc = scores.find((s) => s.engine === "pandoc")!;
     expect(latex.score).toBeGreaterThan(pandoc.score);
   });
+
+  it("includes `reportlab`, confirmed via `pdftotext` against a real render, not merely word-fragmentation-free by assumption", () => {
+    const scores = scoreAllEngines();
+    const reportlab = scores.find((s) => s.engine === "reportlab")!;
+    expect(reportlab).toBeDefined();
+    expect(reportlab.rationale.some((r) => r.includes("empirically confirmed"))).toBe(true);
+  });
 });

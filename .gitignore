@@ -10,6 +10,7 @@ ats-dashboard.html
 COMMIT.md
 coverage/
 cv-output/
+diff/
 dist/
 my-profile/
 node_modules/

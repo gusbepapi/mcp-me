@@ -29,9 +29,10 @@ const RASTER_DPI = 150;
 async function main(): Promise<void> {
   const profileDir = process.argv[2];
   const pdfDir = process.argv[3];
+
   if (!profileDir || !pdfDir) {
     console.error("Usage: tsx scripts/build-dashboard.ts <profileDir> <pdfDir>");
-    console.error("  <pdfDir> must contain cv-latex.pdf, cv-typst.pdf, cv-pandoc.pdf");
+    console.error("  <pdfDir> must contain cv-latex.pdf, cv-typst.pdf, cv-pandoc.pdf, cv-reportlab.pdf");
     process.exit(1);
   }
 
@@ -43,6 +44,7 @@ async function main(): Promise<void> {
   if (!profile.data.career) {
     console.warn(`Warning: no career.yaml found under ${profileDir}, experience-derived phrases will be absent`);
   }
+
   if (!profile.data.skills) {
     console.warn(`Warning: no skills.yaml found under ${profileDir}, skill-derived phrases will be absent`);
   }
@@ -53,14 +55,12 @@ async function main(): Promise<void> {
     skills: skills.success ? skills.data : undefined,
   });
 
-  const engines: EngineName[] = ["latex", "typst", "pandoc"];
+  const engines: EngineName[] = ["latex", "typst", "pandoc", "reportlab"];
   const pdfPaths = Object.fromEntries(engines.map((e) => [e, join(pdfDir, "pdf", `cv-${e}.pdf`)]));
 
   await mkdir(ASSETS_DIR, { recursive: true });
 
-  // Phase one: extracting words and rasterising pages for every engine,
-  // without yet deciding what to highlight, since that decision depends
-  // on the comparison table computed only once every source is available
+  // Phase one: extracting words and rasterising pages for every engine, without yet deciding what to highlight, since that decision depends on the comparison table computed only once every source is available
   const wordsBySource: Record<string, ExtractedWord[]> = {};
   const imagePathsBySource: Record<string, string[]> = {};
   const sourceOrder: string[] = [];
@@ -69,10 +69,12 @@ async function main(): Promise<void> {
 
   for (const engine of engines) {
     const pdfPath = pdfPaths[engine];
+
     if (!existsSync(pdfPath)) {
       console.warn(`Warning: ${basename(pdfPath)} does not exist, skipping this engine entirely`);
       continue;
     }
+
     availableEngines.push(engine);
 
     const fileName = basename(pdfPath);
@@ -85,14 +87,15 @@ async function main(): Promise<void> {
     imagePathsBySource[fileName] = await rasterisePages(pdfPath, ASSETS_DIR, RASTER_DPI);
   }
 
-  // Phase two: building the comparison table now that every source's
-  // words are available
+  // Phase two: building the comparison table now that every source’s words are available
   const affindaPhraseEntries = deriveAffindaPhrases(ir);
   const phrases = affindaPhraseEntries.map((e) => e.phrase);
   const phraseToAffindaField = new Map(
     affindaPhraseEntries.map((e) => [e.phrase.trim().toLowerCase(), e.affindaField]),
   );
+
   console.log(`Derived ${phrases.length} comparison phrases from the profile`);
+
   if (phrases.length === 0) {
     console.warn(
       "Warning: zero comparison phrases were derived; the comparison table will be empty. " +
@@ -100,6 +103,7 @@ async function main(): Promise<void> {
         "profile at " + profileDir + ", not a defect in the dashboard itself",
     );
   }
+
   const comparisonRows = buildComparisonRows(phrases, wordsBySource);
 
   // Phase three: deriving the score for each source empirically from the
@@ -134,11 +138,9 @@ async function main(): Promise<void> {
     };
     scoreEntries.push({ pdfFileName: fileName, score });
 
-    // Collecting the set of words that participate in any matched phrase
-    // for this source, whole or fragment, by object reference, since
-    // buildComparisonRows reuses the same ExtractedWord objects rather
-    // than copying them
+    // Collecting the set of words that participate in any matched phrase for this source, whole or fragment, by object reference, since `buildComparisonRows` reuses the same `ExtractedWord` objects rather than copying them
     const highlightedWords = new Set<ExtractedWord>();
+
     for (const row of comparisonRows) {
       const match = row.matches[fileName];
       if (match && match.kind !== "missing") {
@@ -147,6 +149,7 @@ async function main(): Promise<void> {
     }
 
     const wordsByPage = new Map<number, ExtractedWord[]>();
+
     for (const word of words) {
       if (!highlightedWords.has(word)) continue;
       const list = wordsByPage.get(word.page) ?? [];
@@ -159,11 +162,7 @@ async function main(): Promise<void> {
       await annotatePage(imagePaths[index], pageWords, RASTER_DPI);
     }
 
-    // Cropping a single whole-page thumbnail for the "Highlighted
-    // extraction preview" row, one per engine, rather than one thumbnail
-    // per matched cell. Using the first page's own full dimensions as the
-    // "crop" region, since the intent here is a scaled-down preview of
-    // the entire page, not a crop around any particular phrase
+    // Cropping a single whole page thumbnail for the «Highlighted extraction preview» row, one per engine, rather than one thumbnail per matched cell. Using the first page’s own full dimensions as the «crop» region, since the intent here is a scaled-down preview of the entire page, not a crop around any particular phrase
     if (imagePaths.length > 0) {
       const previewThumbnailPath = join(ASSETS_DIR, `${fileName}-preview-thumb.png`);
       await cropMatchThumbnail(
@@ -195,6 +194,7 @@ async function main(): Promise<void> {
     previewThumbnailsBySource,
     previewFullPagesBySource,
   );
+
   await writeFile(OUTPUT_HTML, html, "utf-8");
   console.log(`Written ${OUTPUT_HTML}, with assets in ${ASSETS_DIR}`);
 }

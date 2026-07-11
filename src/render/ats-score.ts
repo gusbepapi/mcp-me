@@ -28,6 +28,12 @@ const ENGINE_DESCRIPTIONS: Record<EngineName, EngineDescription> = {
     pdfWriter: "Skia/PDF (Chromium, via Puppeteer)",
     layoutMechanism: "full browser CSS box model and HarfBuzz text shaping",
   },
+  reportlab: {
+    pdfWriter: "ReportLab’s own native PDF writer",
+    layoutMechanism:
+      "Platypus text-flow engine (`SimpleDocTemplate`, `Paragraph`, `Frame`), a " +
+      "high-level layout system with real word-wrapping and pagination",
+  },
 };
 
 export function describeEngine(engine: EngineName): EngineDescription {
@@ -71,6 +77,16 @@ const ENGINE_PROFILES: Record<
       "structure is otherwise clean, single-column Markdown-derived HTML",
     ],
   },
+  reportlab: {
+    score: 85,
+    pdfWriter: "ReportLab’s own native PDF writer",
+    layoutMechanism: "Platypus text flow engine, genuine word-wrapping and pagination",
+    rationale: [
+      "empirically confirmed via `pdftotext -bbox`: developer, Meridiana, and architecture all remain whole",
+      "Platypus renders whole `Paragraph` flowables, not per-glyph positioning",
+      "Producer: ReportLab PDF Library, a genuinely distinct writer family from every other engine",
+    ],
+  },
 };
 
 export function bandFor(score: number): AtsScore["band"] {
@@ -108,6 +124,6 @@ export function scoreAts(engine: EngineName): AtsScore {
 }
 
 export function scoreAllEngines(): readonly AtsScore[] {
-  const names: EngineName[] = ["latex", "typst", "pandoc"];
+  const names: EngineName[] = ["latex", "typst", "pandoc", "reportlab"];
   return names.map(scoreAts);
 }

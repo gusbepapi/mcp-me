@@ -3,6 +3,7 @@ import type { EngineName, RenderOptions, RenderResult } from "./engines/types.js
 import { latexEngine } from "./engines/latex.js";
 import { typstEngine } from "./engines/typst.js";
 import { pandocEngine } from "./engines/pandoc.js";
+import { reportlabEngine } from "./engines/reportlab.js";
 import { checkEngineAvailability } from "./engine-availability.js";
 
 export type { CvIR } from "./ir.js";
@@ -23,6 +24,7 @@ const engines: Record<EngineName, { render(ir: CvIR, options: RenderOptions): Pr
   latex: latexEngine,
   typst: typstEngine,
   pandoc: pandocEngine,
+  reportlab: reportlabEngine,
 };
 
 /**
@@ -50,7 +52,7 @@ export async function renderCvAllEngines(
   ir: CvIR,
   outputDirectory: string,
 ): Promise<RenderAllEnginesResult> {
-  const names: EngineName[] = ["latex", "typst", "pandoc"];
+  const names: EngineName[] = ["latex", "typst", "pandoc", "reportlab"];
   const results: Partial<Record<EngineName, RenderResult>> = {};
   const skipped: { engine: EngineName; reason: string }[] = [];
   const failed: { engine: EngineName; error: string }[] = [];

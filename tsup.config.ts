@@ -15,6 +15,9 @@ export default defineConfig([
       await cp("src/render/lib/cv.typ", "dist/assets/cv.typ");
       await cp("scripts/annotate_page.py", "dist/assets/annotate_page.py");
       await cp("scripts/crop_region.py", "dist/assets/crop_region.py");
+      await cp("scripts/render_cv_reportlab.py", "dist/assets/render_cv_reportlab.py");
+      await mkdir("dist/assets/engines/python", { recursive: true });
+      await cp("assets/engines/python/tokens_clean.py", "dist/assets/engines/python/tokens_clean.py");
       await cp("assets/global/fonts/google-sans", "dist/assets/fonts/google-sans", { recursive: true });
     },
   },
