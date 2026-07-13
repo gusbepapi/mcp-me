@@ -1,0 +1,15 @@
+/*
+Browser or engine specific normalisations, kept separate from `001-01-reset-core.css` because these rules exist to correct implementation quirks in particular rendering engines, rather than to express this document’s own baseline
+*/
+
+*
+{
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+html
+{
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}

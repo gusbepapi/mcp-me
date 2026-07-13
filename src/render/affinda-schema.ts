@@ -25,8 +25,25 @@ export interface AffindaWorkExperienceItem {
   readonly workExperienceDescription: string | null;
 }
 
+export interface AffindaEducationLevel {
+  readonly value: string;
+}
+
+export interface AffindaEducationItem {
+  readonly educationOrganization: string | null;
+  readonly educationAccreditation: string | null;
+  readonly educationLevel: AffindaEducationLevel | null;
+}
+
+export interface AffindaProjectItem {
+  readonly projectTitle: string | null;
+  readonly projectDescription: string | null;
+  readonly projectOrganization: string | null;
+}
+
 export interface AffindaSkillItem {
   readonly name: string;
+  readonly type: string;
 }
 
 export interface AffindaLanguageItem {
@@ -40,6 +57,11 @@ export interface AffindaResume {
   readonly objective: string | null;
   readonly summary: string | null;
   readonly workExperience: readonly AffindaWorkExperienceItem[];
+  readonly education: readonly AffindaEducationItem[];
+  readonly project: readonly AffindaProjectItem[];
+  readonly achievement: readonly string[];
+  readonly association: readonly string[];
+  readonly hobby: readonly string[];
   readonly skill: readonly AffindaSkillItem[];
   readonly language: readonly AffindaLanguageItem[];
 }
@@ -74,7 +96,24 @@ export function buildAffindaExport(ir: CvIR): AffindaResume {
       workExperienceLocation: buildLocation(entry.location, undefined),
       workExperienceDescription: entry.description ?? null,
     })),
-    skill: [...ir.skills.technical, ...ir.skills.tools, ...ir.skills.soft].map((name) => ({ name })),
+    education: ir.certifications.map((entry) => ({
+      educationOrganization: entry.issuer,
+      educationAccreditation: entry.name,
+      educationLevel: { value: "Certification" },
+    })),
+    project: ir.projects.map((entry) => ({
+      projectTitle: entry.name,
+      projectDescription: entry.description,
+      projectOrganization: entry.role ?? null,
+    })),
+    achievement: ir.achievements,
+    association: ir.associations,
+    hobby: ir.additionalInformation,
+    skill: [
+      ...ir.skills.technical.map((name) => ({ name, type: "hard skill" })),
+      ...ir.skills.tools.map((name) => ({ name, type: "hard skill" })),
+      ...ir.skills.soft.map((name) => ({ name, type: "soft skill" })),
+    ],
     language: ir.languages.map((l) => ({
       languageName: { value: l.language.toLowerCase(), label: l.language },
     })),
@@ -101,6 +140,23 @@ export function deriveAffindaPhrases(ir: CvIR): AffindaPhraseEntry[] {
   for (const entry of ir.experience) {
     entries.push({ phrase: entry.title, affindaField: "workExperience[].workExperienceJobTitle" });
     entries.push({ phrase: entry.company, affindaField: "workExperience[].workExperienceOrganization" });
+  }
+
+  for (const entry of ir.certifications) {
+    entries.push({ phrase: entry.name, affindaField: "education[].educationAccreditation" });
+    entries.push({ phrase: entry.issuer, affindaField: "education[].educationOrganization" });
+  }
+
+  for (const entry of ir.projects) {
+    entries.push({ phrase: entry.name, affindaField: "project[].projectTitle" });
+  }
+
+  for (const achievement of ir.achievements) {
+    entries.push({ phrase: achievement, affindaField: "achievement[]" });
+  }
+
+  for (const association of ir.associations) {
+    entries.push({ phrase: association, affindaField: "association[]" });
   }
 
   for (const name of [...ir.skills.technical, ...ir.skills.tools, ...ir.skills.soft]) {

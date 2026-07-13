@@ -4,10 +4,12 @@ import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { identitySchema } from "../schema/identity.js";
 import { careerSchema } from "../schema/career.js";
 import { skillsSchema } from "../schema/skills.js";
+import { projectsSchema } from "../schema/projects.js";
 import type { ProfileBundle } from "../loader.js";
 import { buildCvIR } from "../render/ir.js";
 import { renderCv, renderCvAllEngines } from "../render/index.js";
 import type { EngineName } from "../render/engines/types.js";
+import { THEME_NAMES, DEFAULT_THEME } from "../render/engines/theme-names.js";
 
 const ENGINE_NAMES: readonly EngineName[] = ["latex", "typst", "pandoc", "reportlab", "weasyprint"];
 
@@ -18,6 +20,15 @@ const generateCvInputSchema = {
     .describe(
       "Which render engine to use. Passing 'all' renders through every engine, " +
         "producing four PDFs, useful for the ATS-parseability comparison",
+    ),
+  theme: z
+    .enum(THEME_NAMES)
+    .default(DEFAULT_THEME)
+    .describe(
+      "Which of the five *curriculum vitae* themes to render against. Only “clean” " +
+        "presently has populated token CSS/sty/typ files; the remaining four " +
+        "(modern, standard, custom-01, custom-02) are accepted but currently " +
+        "resolve to empty stub stylesheets pending their design-tokens sources",
     ),
   outputDirectory: z
     .string()
@@ -33,6 +44,7 @@ const generateCvInputSchema = {
  */
 export function loadValidatedCvSources(profile: ProfileBundle) {
   const identityResult = identitySchema.safeParse(profile.data.identity);
+
   if (!identityResult.success) {
     throw new Error(
       "generate_cv requires a valid identity.yaml, containing at minimum 'name' " +
@@ -40,14 +52,16 @@ export function loadValidatedCvSources(profile: ProfileBundle) {
     );
   }
 
-  // Career and skills are treated as optional, mirroring the optional status both categories already carry in the profile schema itself; a *curriculum vitae* with no experience listed is unusual, but not something this tool is responsible for forbidding
+  // Career, skills, and projects are treated as optional, mirroring the optional status all three carry in the profile schema itself; a *curriculum vitae* with no experience or no side projects listed is unusual, but not something this tool is responsible for forbidding
   const careerResult = careerSchema.safeParse(profile.data.career ?? {});
   const skillsResult = skillsSchema.safeParse(profile.data.skills ?? {});
+  const projectsResult = projectsSchema.safeParse(profile.data.projects ?? { projects: [] });
 
   return {
     identity: identityResult.data,
     career: careerResult.success ? careerResult.data : undefined,
     skills: skillsResult.success ? skillsResult.data : undefined,
+    projects: projectsResult.success ? projectsResult.data : undefined,
   };
 }
 
@@ -72,13 +86,13 @@ export function registerCvTools(
       inputSchema: generateCvInputSchema,
       annotations: { readOnlyHint: false },
     },
-    async ({ engine, outputDirectory }) => {
-      const { identity, career, skills } = loadValidatedCvSources(profile);
-      const ir = buildCvIR({ identity, career, skills });
+    async ({ engine, theme, outputDirectory }) => {
+      const { identity, career, skills, projects } = loadValidatedCvSources(profile);
+      const ir = buildCvIR({ identity, career, skills, projects });
       const targetDirectory = outputDirectory ?? join(profileDir, "cv-output");
 
       if (engine === "all") {
-        const { results, skipped, failed } = await renderCvAllEngines(ir, targetDirectory);
+        const { results, skipped, failed } = await renderCvAllEngines(ir, targetDirectory, theme);
         const lines: string[] = [];
 
         for (const name of ENGINE_NAMES) {
@@ -117,6 +131,7 @@ export function registerCvTools(
 
       const result = await renderCv(engine, ir, {
         outputPath: join(targetDirectory, `cv-${engine}.pdf`),
+        theme,
       });
 
       return {

@@ -36,6 +36,31 @@ export const careerSchema = z.object({
   experience: z.array(experienceSchema).optional().describe("Work experience, most recent first"),
   education: z.array(educationSchema).optional().describe("Education history"),
   certifications: z.array(certificationSchema).optional().describe("Professional certifications"),
+  achievements: z
+    .array(z.string())
+    .optional()
+    .describe(
+      "Key expertise and core accomplishments, as flat statements, corresponding to Affinda’s " +
+        "own top-level “achievement” *résumé* field, distinct from a given role’s own " +
+        "'highlights', which stay scoped to that one `experienceSchema` entry",
+    ),
+  associations: z
+    .array(z.string())
+    .optional()
+    .describe(
+      "Extracurricular activities, professional associations, and memberships, corresponding " +
+        "to Affinda’s own top-level “association” *résumé* field",
+    ),
+  additional_information: z
+    .array(z.string())
+    .optional()
+    .describe(
+      "Free-text catch-all for whatever does not fit any other career section" +
+        "has no single «additional information» field, spreading this across «hobby», " +
+        "«rightToWork», «availability», and «expectedSalary» instead; this field is deliberately " +
+        "a flat list rather than that four-way split, since none of those four are otherwise " +
+        "collected by this profile schema",
+    ),
 });
 
 export type Career = z.infer<typeof careerSchema>;

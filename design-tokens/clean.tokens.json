@@ -32,12 +32,6 @@
       "accent": { "$type": "color", "$value": "{color.blue.300}" },
       "accent-warm": { "$type": "color", "$value": "{color.yellow.300}" },
       "border": { "$type": "color", "$value": "{color.gray.200}" }
-    },
-    "ats-score": {
-      "excellent": { "$type": "color", "$value": "{color.blue.500}" },
-      "good": { "$type": "color", "$value": "{color.blue.300}" },
-      "fair": { "$type": "color", "$value": "{color.yellow.500}" },
-      "poor": { "$type": "color", "$value": "#c4634a" }
     }
   },
   "dimension": {
@@ -51,6 +45,10 @@
     "sans": {
       "$type": "fontFamily",
       "$value": ["Google Sans", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"]
+    },
+    "serif": {
+      "$type": "fontFamily",
+      "$value": ["Crimson Pro", "Georgia", "Times New Roman", "serif"]
     },
     "mono": {
       "$type": "fontFamily",

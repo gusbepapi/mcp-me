@@ -1,0 +1,21 @@
+body,
+html
+{
+  background: var(--color-semantic-background);
+}
+
+body
+{
+  color: var(--color-gray-800);
+}
+
+em,
+i
+{
+  color: var(--color-semantic-text-secondary);
+}
+
+.mcp-me-rule
+{
+  border-color: var(--color-semantic-border);
+}

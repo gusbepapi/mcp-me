@@ -1,7 +1,8 @@
 import type { CvIR } from "../ir.js";
+import type { ThemeName } from "./theme-names.js";
 
 export interface RenderOptions {
-  readonly theme?: string;
+  readonly theme?: ThemeName;
   readonly outputPath: string;
 }
 

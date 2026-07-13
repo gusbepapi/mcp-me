@@ -28,13 +28,10 @@ Edit the source at `design-tokens/<theme>.tokens.json` instead.
   --color-semantic-accent: #7cb9e8;
   --color-semantic-accent-warm: #f5d76e;
   --color-semantic-border: #e2e8f0;
-  --color-ats-score-excellent: #3b82c4;
-  --color-ats-score-good: #7cb9e8;
-  --color-ats-score-fair: #d4a72c;
-  --color-ats-score-poor: #c4634a;
   --dimension-radius-sm: 6px;
   --dimension-radius-md: 12px;
   --dimension-radius-lg: 20px;
   --fontFamily-sans: "Google Sans", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fontFamily-serif: "Crimson Pro", Georgia, "Times New Roman", serif;
   --fontFamily-mono: "SF Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
 }

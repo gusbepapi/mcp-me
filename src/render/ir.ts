@@ -1,6 +1,7 @@
 import type { Identity } from "../schema/identity.js";
 import type { Career } from "../schema/career.js";
 import type { Skills } from "../schema/skills.js";
+import type { Projects } from "../schema/projects.js";
 
 /**
  * `CvIR` is the canonical, engine-agnostic representation of a *curriculum vitae*. Every render engine (`latex`, `typst`, `pandoc`) consumes this single structure, so a profile is assembled once and rendered four times, rather than four independent assemblies drifting apart
@@ -15,11 +16,15 @@ export interface CvIR {
   readonly location?: string;
   readonly country?: string;
   readonly contact: CvContact;
+  readonly achievements: readonly string[];
   readonly experience: readonly CvExperienceEntry[];
   readonly education: readonly CvEducationEntry[];
   readonly certifications: readonly CvCertificationEntry[];
+  readonly projects: readonly CvProjectEntry[];
   readonly skills: CvSkillsGrouped;
   readonly languages: readonly CvLanguageEntry[];
+  readonly associations: readonly string[];
+  readonly additionalInformation: readonly string[];
 }
 
 export interface CvContact {
@@ -55,6 +60,17 @@ export interface CvCertificationEntry {
   readonly date: string;
 }
 
+export interface CvProjectEntry {
+  readonly name: string;
+  readonly description: string;
+  readonly role?: string;
+  readonly url?: string;
+  readonly startDate?: string;
+  readonly endDate?: string;
+  readonly technologies: readonly string[];
+  readonly highlights: readonly string[];
+}
+
 export interface CvSkillsGrouped {
   readonly technical: readonly string[];
   readonly tools: readonly string[];
@@ -73,9 +89,10 @@ export function buildCvIR(input: {
   identity: Identity;
   career?: Career;
   skills?: Skills;
+  projects?: Projects;
   locale?: string;
 }): CvIR {
-  const { identity, career, skills, locale = "en" } = input;
+  const { identity, career, skills, projects, locale = "en" } = input;
 
   const experience: CvExperienceEntry[] = (career?.experience ?? []).map(
     (entry) => ({
@@ -108,6 +125,17 @@ export function buildCvIR(input: {
     }),
   );
 
+  const projectEntries: CvProjectEntry[] = (projects?.projects ?? []).map((entry) => ({
+    name: entry.name,
+    description: entry.description,
+    role: entry.role,
+    url: entry.url ?? entry.repo_url,
+    startDate: entry.start_date,
+    endDate: entry.end_date,
+    technologies: entry.technologies ?? [],
+    highlights: entry.highlights ?? [],
+  }));
+
   return {
     locale,
     fullName: identity.name,
@@ -128,9 +156,11 @@ export function buildCvIR(input: {
         .filter((s): s is { platform: string; url: string } => Boolean(s.platform && s.url))
         .map((s) => ({ platform: s.platform, url: s.url })),
     },
+    achievements: career?.achievements ?? [],
     experience,
     education,
     certifications,
+    projects: projectEntries,
     skills: {
       technical: (skills?.technical ?? []).map((s) => s.name),
       tools: (skills?.tools ?? []).map((s) => s.name),
@@ -140,5 +170,7 @@ export function buildCvIR(input: {
       language: l.language,
       proficiency: l.proficiency,
     })),
+    associations: career?.associations ?? [],
+    additionalInformation: career?.additional_information ?? [],
   };
 }

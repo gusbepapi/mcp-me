@@ -55,6 +55,7 @@ export interface RenderAllEnginesResult {
 export async function renderCvAllEngines(
   ir: CvIR,
   outputDirectory: string,
+  theme?: RenderOptions["theme"],
 ): Promise<RenderAllEnginesResult> {
   const names: EngineName[] = ["latex", "typst", "pandoc", "reportlab", "weasyprint"];
   const results: Partial<Record<EngineName, RenderResult>> = {};
@@ -70,7 +71,10 @@ export async function renderCvAllEngines(
     }
 
     try {
-      results[name] = await renderCv(name, ir, { outputPath: `${outputDirectory}/cv-${name}.pdf` });
+      results[name] = await renderCv(name, ir, {
+        outputPath: `${outputDirectory}/cv-${name}.pdf`,
+        theme,
+      });
     } 
     
     catch (error) {
