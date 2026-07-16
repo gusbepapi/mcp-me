@@ -1,0 +1,66 @@
+{
+  "system": "disc",
+  "name": "DISC",
+  "responseScale": {
+    "options": [
+      { "value": 1, "label": "Definitely not" },
+      { "value": 2, "label": "Probably not" },
+      { "value": 3, "label": "Not sure" },
+      { "value": 4, "label": "Probably yes" },
+      { "value": 5, "label": "Definitely yes" }
+    ]
+  },
+  "items": [
+    { "id": "disc-d1", "trait": "dominance", "reverseScored": false, "text": "Do you like being in charge?" },
+    { "id": "disc-d2", "trait": "dominance", "reverseScored": false, "text": "Do you make decisions quickly?" },
+    { "id": "disc-d3", "trait": "dominance", "reverseScored": false, "text": "Do you enjoy competing with others?" },
+    { "id": "disc-d4", "trait": "dominance", "reverseScored": false, "text": "Do you like to win?" },
+    { "id": "disc-d5", "trait": "dominance", "reverseScored": false, "text": "Are you direct when you talk to people?" },
+    { "id": "disc-d6", "trait": "dominance", "reverseScored": false, "text": "Do you take charge in a group?" },
+    { "id": "disc-d7", "trait": "dominance", "reverseScored": false, "text": "Do you like solving problems fast?" },
+    { "id": "disc-d8", "trait": "dominance", "reverseScored": false, "text": "Are you comfortable telling people what to do?" },
+    { "id": "disc-d9", "trait": "dominance", "reverseScored": true, "text": "Do you let other people make decisions for you?" },
+    { "id": "disc-d10", "trait": "dominance", "reverseScored": true, "text": "Do you avoid taking charge?" },
+    { "id": "disc-d11", "trait": "dominance", "reverseScored": true, "text": "Do you feel unsure when you need to decide something fast?" },
+    { "id": "disc-d12", "trait": "dominance", "reverseScored": true, "text": "Do you avoid telling people what to do?" },
+
+    { "id": "disc-i1", "trait": "influence", "reverseScored": false, "text": "Do you enjoy talking to people?" },
+    { "id": "disc-i2", "trait": "influence", "reverseScored": false, "text": "Do you make friends easily?" },
+    { "id": "disc-i3", "trait": "influence", "reverseScored": false, "text": "Are you good at convincing people?" },
+    { "id": "disc-i4", "trait": "influence", "reverseScored": false, "text": "Do you enjoy being around people?" },
+    { "id": "disc-i5", "trait": "influence", "reverseScored": false, "text": "Do you feel excited about new plans?" },
+    { "id": "disc-i6", "trait": "influence", "reverseScored": false, "text": "Do you like telling stories to others?" },
+    { "id": "disc-i7", "trait": "influence", "reverseScored": false, "text": "Are you an optimistic person?" },
+    { "id": "disc-i8", "trait": "influence", "reverseScored": false, "text": "Do you enjoy working in a group?" },
+    { "id": "disc-i9", "trait": "influence", "reverseScored": true, "text": "Do you feel shy around new people?" },
+    { "id": "disc-i10", "trait": "influence", "reverseScored": true, "text": "Do you avoid talking in front of others?" },
+    { "id": "disc-i11", "trait": "influence", "reverseScored": true, "text": "Do you prefer working alone?" },
+    { "id": "disc-i12", "trait": "influence", "reverseScored": true, "text": "Do you feel quiet in social situations?" },
+
+    { "id": "disc-s1", "trait": "steadiness", "reverseScored": false, "text": "Do you like a calm and steady life?" },
+    { "id": "disc-s2", "trait": "steadiness", "reverseScored": false, "text": "Are you patient with people?" },
+    { "id": "disc-s3", "trait": "steadiness", "reverseScored": false, "text": "Do you like helping your team?" },
+    { "id": "disc-s4", "trait": "steadiness", "reverseScored": false, "text": "Do you like having a steady daily routine?" },
+    { "id": "disc-s5", "trait": "steadiness", "reverseScored": false, "text": "Are you loyal to your friends?" },
+    { "id": "disc-s6", "trait": "steadiness", "reverseScored": false, "text": "Do you feel calm most of the time?" },
+    { "id": "disc-s7", "trait": "steadiness", "reverseScored": false, "text": "Do you like working step by step?" },
+    { "id": "disc-s8", "trait": "steadiness", "reverseScored": false, "text": "Do you support other people when they need help?" },
+    { "id": "disc-s9", "trait": "steadiness", "reverseScored": true, "text": "Do you get bored with routine quickly?" },
+    { "id": "disc-s10", "trait": "steadiness", "reverseScored": true, "text": "Do you like sudden changes?" },
+    { "id": "disc-s11", "trait": "steadiness", "reverseScored": true, "text": "Do you feel restless when things stay the same?" },
+    { "id": "disc-s12", "trait": "steadiness", "reverseScored": true, "text": "Do you avoid helping others when you are busy?" },
+
+    { "id": "disc-c1", "trait": "compliance", "reverseScored": false, "text": "Do you like following clear rules?" },
+    { "id": "disc-c2", "trait": "compliance", "reverseScored": false, "text": "Do you check your work for mistakes?" },
+    { "id": "disc-c3", "trait": "compliance", "reverseScored": false, "text": "Do you like things to be accurate?" },
+    { "id": "disc-c4", "trait": "compliance", "reverseScored": false, "text": "Are you careful before making a decision?" },
+    { "id": "disc-c5", "trait": "compliance", "reverseScored": false, "text": "Do you like clear instructions?" },
+    { "id": "disc-c6", "trait": "compliance", "reverseScored": false, "text": "Do you follow steps in the correct order?" },
+    { "id": "disc-c7", "trait": "compliance", "reverseScored": false, "text": "Are you careful with small details?" },
+    { "id": "disc-c8", "trait": "compliance", "reverseScored": false, "text": "Do you like things to be organised and correct?" },
+    { "id": "disc-c9", "trait": "compliance", "reverseScored": true, "text": "Do you skip steps when doing a task?" },
+    { "id": "disc-c10", "trait": "compliance", "reverseScored": true, "text": "Do you ignore small mistakes?" },
+    { "id": "disc-c11", "trait": "compliance", "reverseScored": true, "text": "Do you make decisions without checking the details?" },
+    { "id": "disc-c12", "trait": "compliance", "reverseScored": true, "text": "Do you dislike following strict rules?" }
+  ]
+}
